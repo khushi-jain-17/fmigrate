@@ -7,7 +7,7 @@ Create Date: 2024-03-31 17:31:25.362601
 """
 from alembic import op
 import sqlalchemy as sa
-from alembic.operations.batch import batch_alter_table
+# from alembic.operations.batch import batch_alter_table
 
 
 # revision identifiers, used by Alembic.
@@ -17,16 +17,28 @@ branch_labels = None
 depends_on = None
 
 
-def upgrade():
-    with batch_alter_table("order") as batch_op:
-      batch_op.create_foreign_key(
-        "fk_order",
-        "order",
-        ["blog_id"],
-        ["bid"],
-    )
-    
+# def upgrade():
+#     with batch_alter_table("order") as batch_op:
+#       batch_op.create_foreign_key(
+#         "fk_order",
+#         "order",
+#         ["blog_id"],
+#         ["bid"],
+#     )
 
+
+def upgrade():
+    with op.batch_alter_table("order") as batch_op:
+        batch_op.create_foreign_key(
+            "fk_order_blog_id",
+            "blog",
+            ["blog_id"],
+            ["bid"],
+        )
 
 def downgrade():
-    pass
+    with op.batch_alter_table("order") as batch_op:
+        batch_op.drop_constraint("fk_order_blog_id", type_="foreignkey")
+
+
+

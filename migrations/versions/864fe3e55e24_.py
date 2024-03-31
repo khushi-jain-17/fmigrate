@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: ba71d3e3a68d
-Revises: 83a304171321
-Create Date: 2024-03-31 16:38:42.085787
+Revision ID: 864fe3e55e24
+Revises: 1c768619ce1a
+Create Date: 2024-03-31 19:47:52.906882
 
 """
 from alembic import op
@@ -10,12 +10,10 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ba71d3e3a68d'
-down_revision = '83a304171321'
+revision = '864fe3e55e24'
+down_revision = '1c768619ce1a'
 branch_labels = None
 depends_on = None
-
-
 
 
 def upgrade():
@@ -30,3 +28,4 @@ def upgrade():
 def downgrade():
     with op.batch_alter_table("order") as batch_op:
         batch_op.drop_constraint("fk_order_blog_id", type_="foreignkey")
+
